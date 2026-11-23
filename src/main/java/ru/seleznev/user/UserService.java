@@ -1,13 +1,13 @@
 package ru.seleznev.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import org.springframework.stereotype.Service;
 import ru.seleznev.account.Account;
 import ru.seleznev.account.AccountService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -36,9 +36,9 @@ public class UserService {
     }
 
     public String showAllUsers() {
-        String allUsersList = userMap.values().toString();
-        System.out.println(allUsersList);
-        return allUsersList;
+        return userMap.values().stream()
+                .map(User::toString)
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 
     public Account createAndLinkAccount(int userId) {
